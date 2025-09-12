@@ -13,6 +13,7 @@ public interface IInteractable
     void Hover();
     void UnHover();
     void Interact(GameObject interactingObject); // Used for Press type
+    void DeInteract(GameObject interactingObject); // Used for Press type
     void PushInteractStatus(float status); // Used for Hold type
     E_Interact_Type GetInteractType();
 }

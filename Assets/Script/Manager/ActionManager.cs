@@ -5,4 +5,5 @@ public class ActionManager : MonoBehaviour
 {
     public static Action<Recipe> OnRecipieSelected;
     public static Action onBasicWorkbenchClosed;
+    public static Action onCraftButtonPressed;
 }

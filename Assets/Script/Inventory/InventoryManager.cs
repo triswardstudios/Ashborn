@@ -8,6 +8,7 @@ public class InventoryManager : MonoSingleton<InventoryManager>
    private Inventory inventory;
    private InventoryDisplay inventoryDisplay;
    private string dataPath="";
+    [SerializeField] E_Inventory_Item_Type debugItemtoAddinInv;
 
 
    
@@ -40,15 +41,11 @@ public class InventoryManager : MonoSingleton<InventoryManager>
 
 
     [NaughtyAttributes.Button]
-    public void AddStone()
+    public void AddDebugItemTOInv()
     {
-        AddItemToInventory(E_Inventory_Item_Type.Stone, 5);
+        AddItemToInventory(debugItemtoAddinInv, 5);
     }
-    [NaughtyAttributes.Button]
-    public void AddNail()
-    {
-        AddItemToInventory(E_Inventory_Item_Type.Nail, 5);
-    }
+   
     
 
 

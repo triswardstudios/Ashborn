@@ -34,6 +34,14 @@ public enum E_Inventory_Item_Type
     Gun = 4,
 }
 
+public enum E_Craft_State
+{
+    Empty,
+    CraftSelcted,
+    Craftinginprogress,
+    ReadytoCollect,
+}
+
 
 #endregion
 

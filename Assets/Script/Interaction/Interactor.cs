@@ -98,6 +98,11 @@ public class Interactor : MonoBehaviour
                 currentRayInteractable.Interact(this.gameObject);
                 currentRayInteractable.PushInteractStatus(1f);
             }
+            else if (Input.GetKeyUp(interactKey))
+            {
+                currentRayInteractable.PushInteractStatus(0f);
+                currentRayInteractable.DeInteract(this.gameObject);
+            }
         }
         else if (type == E_Interact_Type.Hold)
         {

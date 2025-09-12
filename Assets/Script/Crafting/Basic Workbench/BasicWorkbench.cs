@@ -8,10 +8,30 @@ public class BasicWorkbench : CraftbenchBase
 
 
     private List<Recipe> unlockedCraftablItems = new List<Recipe>();
+    private bool isItemPossibleToMake = true;
     public override void Interact(GameObject interctingObject)
     {
-        Configure();
+        canInteract = false;
+        SelectAccordingState();
     }
+
+
+    void SelectAccordingState()
+    {
+        switch (craftState)
+        {
+            case E_Craft_State.Empty:
+                Configure();
+                break;
+            case E_Craft_State.CraftSelcted:
+                break;
+            case E_Craft_State.Craftinginprogress:
+                break;
+            case E_Craft_State.ReadytoCollect:
+                break;
+        }
+    }
+
 
     [NaughtyAttributes.Button]
     void Configure()
@@ -31,8 +51,11 @@ public class BasicWorkbench : CraftbenchBase
         UpdateDisplay();
 
         ActionManager.onBasicWorkbenchClosed += OnClose;
+        ActionManager.onCraftButtonPressed += CraftButtonPressed;
         UIManager.Instance.bwb_Parent.SetActive(true);
     }
+
+    #region CRAFT MENU
 
     //Shows avilabel blueprints
     void UpdateDisplay()
@@ -85,17 +108,20 @@ public class BasicWorkbench : CraftbenchBase
                 uIRequiredItemContainer = UIManager.Instance.bwb_ItemRequiredHolder.GetChild(i).GetComponent<UIRequiredItemContainer>();
                 uIRequiredItemContainer.gameObject.SetActive(true);
                 //Update just the amount text
-                uIRequiredItemContainer.Configure(recipe.requiredItemToCraft[i].inventorySCO.icon, recipe.requiredItemToCraft[i].inventorySCO.itemName, recipe.requiredItemToCraft[i].requiredAmount,InventoryManager.Instance.GetInventory().GetItemAmountInInventory(recipe.requiredItemToCraft[i].inventorySCO.itemType));
+                uIRequiredItemContainer.Configure(recipe.requiredItemToCraft[i].inventorySCO.icon, recipe.requiredItemToCraft[i].inventorySCO.itemName, recipe.requiredItemToCraft[i].requiredAmount, InventoryManager.Instance.GetInventory().GetItemAmountInInventory(recipe.requiredItemToCraft[i].inventorySCO.itemType));
 
             }
             else
             {
                 //when there is not enough container create new
                 uIRequiredItemContainer = Instantiate(GameAssets.Instance.uIRequiredItemContainerPrefab, UIManager.Instance.bwb_ItemRequiredHolder);
-                uIRequiredItemContainer.Configure(recipe.requiredItemToCraft[i].inventorySCO.icon, recipe.requiredItemToCraft[i].inventorySCO.itemName, recipe.requiredItemToCraft[i].requiredAmount,InventoryManager.Instance.GetInventory().GetItemAmountInInventory(recipe.requiredItemToCraft[i].inventorySCO.itemType));
+                uIRequiredItemContainer.Configure(recipe.requiredItemToCraft[i].inventorySCO.icon, recipe.requiredItemToCraft[i].inventorySCO.itemName, recipe.requiredItemToCraft[i].requiredAmount, InventoryManager.Instance.GetInventory().GetItemAmountInInventory(recipe.requiredItemToCraft[i].inventorySCO.itemType));
                 uIRequiredItemContainer.gameObject.SetActive(true);
             }
-
+            if (isItemPossibleToMake)
+            {
+                isItemPossibleToMake = recipe.requiredItemToCraft[i].requiredAmount <= InventoryManager.Instance.GetInventory().GetItemAmountInInventory(recipe.requiredItemToCraft[i].inventorySCO.itemType);
+            }
         }
 
 
@@ -113,19 +139,31 @@ public class BasicWorkbench : CraftbenchBase
 
     void OnRecipeSelected(Recipe recipe)
     {
+        isItemPossibleToMake = true;
         ShowRecipe(recipe);
+        UIManager.Instance.bwb_CraftButton.interactable = isItemPossibleToMake;
     }
     void OnClose()
     {
         ActionManager.onBasicWorkbenchClosed -= OnClose;
         ActionManager.OnRecipieSelected -= OnRecipeSelected;
+        ActionManager.onCraftButtonPressed -= CraftButtonPressed;
 
         UIManager.Instance.bwb_Details.SetActive(false);
         UIManager.Instance.bwb_Parent.SetActive(false);
 
         for (int i = 0; i < UIManager.Instance.bwb_ItemRequiredHolder.childCount; i++)
             UIManager.Instance.bwb_ItemRequiredHolder.GetChild(i).gameObject.SetActive(false);
-        
+
 
     }
+
+    void CraftButtonPressed()
+    {
+        //new craft recipe selected
+        craftState = E_Craft_State.CraftSelcted;
+        OnClose();
+        UpdateHeaderText("Craft");
+    }
+    #endregion
 }

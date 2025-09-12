@@ -3,18 +3,20 @@ using UnityEngine;
 public abstract class InteractableBase : MonoBehaviour, IInteractable
 {
     [Header("Pointer UI")]
-    [SerializeField] private InteractPointerWidget pointerWidget;
+    [SerializeField] protected InteractPointerWidget pointerWidget;
 
     [Header("Interaction Info")]
     [SerializeField] private string interactKey = "E";
     [SerializeField] private string headerText = "Interact";
-    [SerializeField] [TextArea] private string toolTipText = "";
+    [SerializeField][TextArea] private string toolTipText = "";
     [SerializeField] private E_Interact_Type interactionType = E_Interact_Type.Press;
 
     private bool isHovered = false;
+    public bool canInteract = true;
 
     public virtual void ShowPointer()
     {
+        if (!canInteract) return;
         if (pointerWidget == null)
         {
             pointerWidget = GetComponentInChildren<InteractPointerWidget>();
@@ -31,6 +33,7 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
 
     public virtual void Hover()
     {
+        if (!canInteract) return;
         if (pointerWidget == null || isHovered) return;
 
         pointerWidget.ShowFullPanelStatus(
@@ -55,6 +58,10 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
     {
         // To be overridden by derived class if needed
     }
+    public virtual void DeInteract(GameObject interactingObject)
+    {
+        
+    }
 
     public virtual void PushInteractStatus(float status)
     {
@@ -75,5 +82,14 @@ public abstract class InteractableBase : MonoBehaviour, IInteractable
         {
             pointerWidget.ShowFullPanelStatus(true, interactKey, headerText, toolTipText);
         }
+    }
+    protected void UpdateHeaderText(string newText)
+    {
+        headerText = newText;
+        if (isHovered)
+        {
+            pointerWidget.ShowFullPanelStatus(true, interactKey, headerText, toolTipText);
+        }
+
     }
 }
