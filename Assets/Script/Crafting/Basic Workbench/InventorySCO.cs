@@ -1,5 +1,6 @@
 using CustomInspector;
 using UnityEngine;
+using Jy_Util;
 
 
 [CreateAssetMenu(menuName = "GAME/InventorySCO")]

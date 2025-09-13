@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Jy_Util;
 
 [CreateAssetMenu(menuName = "GAME/Recipe")]
 public class Recipe : ScriptableObject

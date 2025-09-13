@@ -284,7 +284,7 @@ GameObject:
   m_Component:
   - component: {fileID: 436985154}
   m_Layer: 0
-  m_Name: ENVIRONEMNT
+  m_Name: =ENVIRONEMNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1003,7 +1003,7 @@ GameObject:
   - component: {fileID: 648207593}
   - component: {fileID: 648207594}
   m_Layer: 0
-  m_Name: MANAGER
+  m_Name: =MANAGER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1716,6 +1716,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1737,6 +1739,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1782,6 +1785,7 @@ MonoBehaviour:
   headerText: Basic Workbench
   toolTipText: item could be crafted here
   interactionType: 1
+  canInteract: 1
   craftState: 0
   canbeCraftedIn:
   - {fileID: 11400000, guid: dfd114b807c20484983c78c9afcdcd97, type: 2}
@@ -4418,6 +4422,7 @@ MonoBehaviour:
   lightDummy: {fileID: 0}
   uIItemContainerPrefb: {fileID: 615904982041360235, guid: 72de7c6203cbae84c810abe3f2f1be27, type: 3}
   uIRequiredItemContainerPrefab: {fileID: 6198644923799188722, guid: 21edd2b3eff91d2429147808c5a18f6b, type: 3}
+  footStepsAudio: []
 --- !u!1 &1835930319
 GameObject:
   m_ObjectHideFlags: 0
@@ -4803,7 +4808,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2089555762}
   m_Layer: 0
-  m_Name: GAME
+  m_Name: =GAME
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

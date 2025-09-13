@@ -1,5 +1,4 @@
-using System;
-using CustomInspector;
+using Jy_Util;
 using UnityEngine;
 
 [RequireComponent(typeof(InventoryDisplay))]
