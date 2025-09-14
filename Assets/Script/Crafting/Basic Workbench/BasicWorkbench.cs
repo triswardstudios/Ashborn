@@ -10,8 +10,10 @@ public class BasicWorkbench : CraftbenchBase
     private bool isItemPossibleToMake = true;
     public override void Interact(GameObject interctingObject)
     {
-        canInteract = false;
+        base.Interact(interctingObject);
+
         SelectAccordingState();
+        InputManager.Instance.gameInpupt.OnCancelEvent += OnClose;
     }
 
 
@@ -144,25 +146,40 @@ public class BasicWorkbench : CraftbenchBase
     }
     void OnClose()
     {
-        ActionManager.onBasicWorkbenchClosed -= OnClose;
-        ActionManager.OnRecipieSelected -= OnRecipeSelected;
-        ActionManager.onCraftButtonPressed -= CraftButtonPressed;
-
+        CloseBench(); //active input again
+        //Unbind events
+        UnbindEvents();
+        //setup UI
         UIManager.Instance.bwb_Details.SetActive(false);
         UIManager.Instance.bwb_Parent.SetActive(false);
-
         for (int i = 0; i < UIManager.Instance.bwb_ItemRequiredHolder.childCount; i++)
             UIManager.Instance.bwb_ItemRequiredHolder.GetChild(i).gameObject.SetActive(false);
 
 
     }
-
-    void CraftButtonPressed()
+    void UnbindEvents()
     {
-        //new craft recipe selected
-        craftState = E_Craft_State.CraftSelcted;
-        OnClose();
+        //Unbind events
+        ActionManager.onBasicWorkbenchClosed -= OnClose;
+        ActionManager.OnRecipieSelected -= OnRecipeSelected;
+        ActionManager.onCraftButtonPressed -= CraftButtonPressed;
+        InputManager.Instance.gameInpupt.OnCancelEvent -= OnClose;
+        
+    }
+
+
+    
+    public override void CraftButtonPressed()
+    {
+        base.CraftButtonPressed();
+        
+        UnbindEvents();
+        //setup UI
+        UIManager.Instance.bwb_Details.SetActive(false);
+        UIManager.Instance.bwb_Parent.SetActive(false);
+
         UpdateHeaderText("Craft");
+        PlayerAnimationManager.Instance.PlayerCraftonBasicWorkbench(true);
     }
     #endregion
 }
