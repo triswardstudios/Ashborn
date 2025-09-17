@@ -96,6 +96,7 @@ public class BasicWorkbench : CraftbenchBase
     //show real required items
     void ShowRecipe(Recipe recipe)
     {
+        selectedRecipe = recipe;
         UIManager.Instance.bwb_mainItemIcon.sprite = recipe.outputItemIcon;
         UIManager.Instance.bwb_mainItemNameText.text = recipe.itemName + " X " + recipe.outputCraftedItem.amount.ToString();
         UIManager.Instance.bwb_Details.SetActive(true);
@@ -164,22 +165,33 @@ public class BasicWorkbench : CraftbenchBase
         ActionManager.OnRecipieSelected -= OnRecipeSelected;
         ActionManager.onCraftButtonPressed -= CraftButtonPressed;
         InputManager.Instance.gameInpupt.OnCancelEvent -= OnClose;
-        
+
     }
 
 
-    
+
     public override void CraftButtonPressed()
     {
         base.CraftButtonPressed();
-        
+
         UnbindEvents();
         //setup UI
         UIManager.Instance.bwb_Details.SetActive(false);
         UIManager.Instance.bwb_Parent.SetActive(false);
 
-        UpdateHeaderText("Craft");
+        //UpdateHeaderText("Craft");
         PlayerAnimationManager.Instance.PlayerCraftonBasicWorkbench(true);
+        OneCraftDone += OnCraftDone;
+
     }
+    #endregion
+
+    #region  Craft Cancelation
+    
+
+
+
+
+
     #endregion
 }

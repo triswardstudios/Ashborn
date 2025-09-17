@@ -12,6 +12,11 @@ public class UIManager : MonoSingleton<UIManager>
     public TMP_Text bwb_mainItemNameText;
     public Transform bwb_ItemRequiredHolder;
     public Button bwb_CraftButton;
+    [Space]
+    [Header("Pregress")]
+    public Image bwb_progressImg;
+    public Image bwb_iconProgressImg;
+    public GameObject progressPanel;
 
     public void bwb_CloseButtonPressed()
     {

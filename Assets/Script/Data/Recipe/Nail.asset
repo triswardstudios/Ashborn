@@ -17,8 +17,10 @@ MonoBehaviour:
     item_type: 3
     amount: 2
   outputItemIcon: {fileID: 21300000, guid: fc384d49d05b24c41bcbe374da6d064c, type: 3}
+  carftTime: 3
   requiredItemToCraft:
   - inventorySCO: {fileID: 11400000, guid: 9a1e35d30c3f5d04abdd582324b1a7ae, type: 2}
     requiredAmount: 4
   - inventorySCO: {fileID: 11400000, guid: d9f6b492a79079e4784cf0d3a64b34d3, type: 2}
     requiredAmount: 4
+  workload: 10
