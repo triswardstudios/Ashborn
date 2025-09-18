@@ -20,11 +20,45 @@ public class InventoryManager : MonoSingleton<InventoryManager>
         
         LoadInventory();
         ConfigureInventoryDisplay();
-
+        SubcribeToInput(true);
     }
-  
 
-   
+
+
+    #region INPUT
+    void SubcribeToInput(bool val)
+    {
+        if (val)
+        {
+            GameAssets.Instance.gameInput.OnInventoryEvent += ShowInventory;
+        }
+        else
+        {
+            GameAssets.Instance.gameInput.OnInventoryEvent -= ShowInventory;
+        }
+    }
+
+    void ShowInventory()
+    {
+        if (UIManager.Instance.InventoryObject.activeSelf)
+        {
+            UIManager.Instance.InventoryObject.SetActive(false);
+        }
+        else
+        {
+            inventoryDisplay.Configure(inventory);
+            UIManager.Instance.InventoryObject.SetActive(true);
+            
+        }
+    }
+    
+
+    
+
+    #endregion
+
+
+
 
     public Inventory GetInventory()
     {

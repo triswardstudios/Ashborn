@@ -10,6 +10,12 @@ public class UIItemContainer : MonoBehaviour
     private Recipe recipe;
 
 
+
+    public void Configure(Sprite iconSprint, int amount)
+    {
+        icon.sprite = iconSprint;
+        amountText.text = (amount > 0) ? amount.ToString() : "";
+    }
     public void Configure(Sprite iconSprint, int amount, Recipe recipe)
     {
         icon.sprite = iconSprint;

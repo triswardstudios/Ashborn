@@ -17,6 +17,15 @@ public class UIManager : MonoSingleton<UIManager>
     public Image bwb_progressImg;
     public Image bwb_iconProgressImg;
     public GameObject progressPanel;
+    [Space]
+    [Header("inventory")]
+    public GameObject InventoryObject;
+    public Transform inventoryConatienr;
+
+
+
+
+
 
     public void bwb_CloseButtonPressed()
     {
